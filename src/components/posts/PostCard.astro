@@ -1,0 +1,18 @@
+---
+import { formatPostDate, type PostType } from '@/libs/functions'
+
+interface Props {
+    post: PostType
+    type?: 'mini' | 'normal'
+}
+const { post, type = 'normal' } = Astro.props
+const { slug, data } = post
+const { title, description, date } = data
+const formatedDate = formatPostDate(date)
+---
+
+<section class={`flex ${type === 'normal' ? 'flex-col gap-1' : 'flex-row-reverse justify-between'}`}>
+    <span class="text-sm text-gray-400">{formatedDate}</span>
+    <a href={`/posts/${slug}`} class="text-md font-semibold text-secondary-text hover:underline">{title}</a>
+    {type === 'normal' && <p class="text-gray-600">{description}</p>}
+</section>

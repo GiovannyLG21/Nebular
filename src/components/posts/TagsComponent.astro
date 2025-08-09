@@ -1,0 +1,18 @@
+---
+import { getCollection } from "astro:content"
+import { getPosts, getPostsTags } from '@/libs/functions'
+import TagCard from "./TagCard.astro"
+
+const posts = await getPosts()
+const postsTags = getPostsTags(posts)
+---
+
+<div class="flex flex-col gap-4">
+    <h2 class="text-md font-bold">Tags</h2>
+    <section class="flex flex-row flex-wrap gap-2">
+        {postsTags.map(tag => <TagCard tag={tag} />)}
+    </section>
+    <div class="w-full flex justify-end">
+        <a href="/tags" class="font-bold hover:text-hover">View All -></a>
+    </div>
+</div>

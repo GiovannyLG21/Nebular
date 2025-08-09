@@ -1,0 +1,23 @@
+---
+import TagCard from "@/components/posts/TagCard.astro";
+import Layout from "@/layouts/Layout.astro";
+import { getPosts, getPostsOfTag, getPostsTags } from "@/libs/functions";
+
+
+const posts = await getPosts()
+const tags = getPostsTags(posts)
+---
+
+<Layout title="All Tags">
+    <main>
+        <h1 class="main-title">Tags</h1>
+        <article class="flex flex-row flex-wrap gap-2">
+            {tags.map(tag => {
+                const postsTag = getPostsOfTag(tag, posts)
+                return (
+                    <TagCard tag={tag} posts={postsTag}/>
+                )
+            })}
+        </article>
+    </main>
+</Layout>
