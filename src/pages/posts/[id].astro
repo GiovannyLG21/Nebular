@@ -1,0 +1,52 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import { render } from "astro:content";
+import { getPosts } from "@/libs/functions";
+
+export async function getStaticPaths() {
+    const posts = await getPosts()
+
+    return posts.map(post => ({
+        params: { id: post.slug },
+        props: { post }
+    }))
+}
+
+const { post }= Astro.props
+const { data, slug } = post
+const { title, description, date, readtime, tags } = data
+const { Content } = await render(post)
+---
+
+<Layout title={title}>
+    <main>
+        <header class="flex flex-col gap-4">
+            <!-- Title -->
+            <div class="title flex flex-row items-center gap-2">
+                <div class="icon">📋</div>
+                <h1 class="text-2xl font-bold">{title}</h1>
+            </div>
+            <!-- Data -->
+            <section class="flex flex-row gap-2 items-center">                
+                <span>🗓️</span>
+                <p>{date}</p>
+                <div>•</div>
+                <span>📖</span>
+                <p>{readtime} min read</p>
+            </section>
+            <!-- Description -->
+            <p>{description}</p>
+            <!-- Tags -->
+            <section class="tags flex flex-row gap-2">
+                <div>🏷️</div>
+                <div class="flex flex-row items-center gap-2">
+                    {tags.map((tag) => (
+                        <a class="text-white text-md bg-primary rounded-lg px-2">#{tag}</a>
+                    ))}                
+                </div>
+            </section>
+        </header>
+        <Content />
+    </main>
+</Layout>

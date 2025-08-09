@@ -1,0 +1,18 @@
+<script is:inline>
+    const setTheme = (theme) => {
+        localStorage.setItem('theme', theme)
+        document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    const loadTheme = () => {
+        let actualTheme = localStorage.getItem('theme') 
+        if (!actualTheme) { 
+            const systemTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark' 
+            actualTheme = systemTheme 
+        } 
+        setTheme(actualTheme)
+    }
+
+    loadTheme()
+    document.addEventListener('astro:after-swap', loadTheme)       
+</script>

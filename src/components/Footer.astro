@@ -1,0 +1,25 @@
+---
+import Entrys from "./Entrys.astro";
+---
+<footer class="flex flex-row w-full justify-between">
+    <span class="text-sm text-gray-600 font-bold">
+        ©️ Giovanny Ladino 2025. 🚀 Astro Nebular 
+    </span>
+    <ul class="footer-list flex flex-row gap-6 text-gray-500 font-semibold">
+        <Entrys />
+    </ul>
+</footer>
+
+<style>
+    .footer-list { 
+        a {
+            font-size: 14px;
+            color: var(--color-gray-400);
+        }
+
+        a:hover{
+            text-decoration: underline;
+            color: var(--color-gray-600);
+        }
+    }
+</style>

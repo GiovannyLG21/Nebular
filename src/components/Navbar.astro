@@ -1,0 +1,60 @@
+---
+import { Image } from 'astro:assets'
+import SearchIcon from '@/assets/icons/SearchIcon.astro'
+import Nebular from '@/assets/nebular.png'
+import ThemeToggle from './theme/ThemeToggle.astro'
+import Entrys from './Entrys.astro'
+
+interface Props {
+    animate?: boolean
+}
+const { animate } = Astro.props
+---
+
+<nav class={`flex flex-row w-full justify-between items-center py-8 px-2 ${animate ? 'animate__animated animate__fadeInDown' : ''}`}>
+    <div title="Inicio">
+        <a href="/" class="flex flex-row gap-2 items-center cursor-pointer hover:text-hover dark:hover:text-primary-500">
+            <Image src={Nebular} alt="Nebular Logo" width="35"/>
+            <h1 class="text-2xl font-extrabold">Nebular</h1>
+        </a>
+    </div>
+    <ul class="nav-list flex flex-row gap-2 justify-center items-center mr-18 font-bold">
+        <Entrys />
+        <li>
+            <a href="/" id="docs">Docs</a>
+        </li>   
+    </ul>
+    <div class="flex flex-row gap-4 text-gray-600 dark:text-gray-100">
+        <div title="Buscar">
+            <SearchIcon />
+        </div>
+        <ThemeToggle />
+    </div>
+</nav>
+
+<style>
+    .nav-list {
+        a {       
+            border-radius: 10px;
+            padding: 5px 12px;
+            transition: background-color 200ms;
+        }
+        
+        a:hover {
+            background-color: var(--color-hover);  
+            color: white; 
+        }
+        
+        a#docs {
+            background-color: white;
+            color: var(--color-secondary);           
+            border: 1px solid var(--color-gray-200);    
+        }
+        
+        a#docs:hover {
+            background-color: var(--color-hover);
+            color: white;
+            border-color: var(--color-hover);
+        }
+    }
+</style>

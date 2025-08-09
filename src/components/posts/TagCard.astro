@@ -1,0 +1,19 @@
+---
+import type { PostType } from '@/libs/functions'
+
+interface Props{
+    tag: string,
+    posts?: PostType[]
+}
+const { tag, posts } = Astro.props
+---
+
+<a 
+    href={`/tags/${tag}`}
+    class="bg-gray-200 text-gray-600 rounded-md text-sm text-nowrap px-2 hover:bg-hover hover:text-white"
+>
+    #{tag}
+    {posts && (
+        <span>{posts.length} posts</span>
+    )}
+</a>

@@ -1,0 +1,30 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Content from '@/content/About.md'
+import { GITHUB_PROFILE } from 'astro:env/client';
+
+---
+
+<Layout title='About'>
+    <main>
+        <h1 class="main-title">About</h1>
+        <section class="flex flex-col justify-start items-start gap-6 text-gray-500">
+            <p>Hi, i'm starter Astro. I'm particulary great for getting you started with your own blogging website.</p>
+            <p>Here are my some of my awesome built in features:</p>
+            <ul class="flex flex-col gap-3 list-disc pl-12">
+                <li>I'm ultra fast as I'm static site</li>
+                <li>I'm fully responsive</li>
+                <li>I'm come with a light and dark mode</li>
+                <li>I'm easy to customise and add additional content</li>
+                <li>I have TailwindCSS styling</li>
+                <li>Shiki code syntax highlighting</li>
+                <li>Satori for auto generating OG images for blog posts</li>
+            </ul>
+            <p>
+                Clone or fork my 
+                <a href={GITHUB_PROFILE} target="_blank" class="font-bold text-hover hover:underline">repo</a> 
+                if you like me!
+            </p>
+        </section>                               
+    </main>
+</Layout>

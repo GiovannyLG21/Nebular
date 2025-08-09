@@ -1,0 +1,48 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import GithubIcon from '@/assets/icons/GithubIcon.astro';
+import { GITHUB_PROFILE } from 'astro:env/client';
+import PostCard from '@/components/posts/PostCard.astro';
+import { getPosts, orderPostsByYear } from '@/libs/functions'
+import { getCollection } from 'astro:content';
+
+const posts = await getPosts()
+const orderedPosts = orderPostsByYear(posts)
+---
+
+<Layout title="Inicio" animateNavbar index>			
+	<main class="index justify-center items-center">	
+		<!-- Introducing -->
+		<article class="flex flex-col justify-center items-center gap-4 max-w-[80%] h-[80vh]">
+			<h1 class="text-3xl font-bold text-center bg-gradient-to-r from-primary via-secondary-600 to-primary 
+			bg-clip-text text-transparent dark:text-yellow-300">Introducing Astro Nebular!</h1>
+			<p class="text-center text-lg prose dark:text-gray-400 dark:font-bold">Lorem ipsum dolor sit amet consectetur, 
+				adipisicing elit. Adipisci temporibus molestias impedit atque recusandae! Expedita culpa libero perferendis 
+				reprehenderit accusamus nihil, vel animi quam repellat ut consequatur ex? Corrupti, cupiditate!</p>
+				<!-- Github -->
+			<div class="opacity-60 hover:opacity-100">				
+				<a role="button" href={GITHUB_PROFILE} target="_blank" title="Github" class="flex flex-row gap-3 items-center">
+					<span>Find me on </span>
+					<GithubIcon />
+				</a>
+			</div>
+			<!-- Buttons -->
+			<div class="flex gap-4 mt-4">
+				<a role="button" href="/posts" class="btn btn-gradient">Read Blog</a>
+				<a role="button" href="/notes" class="btn btn-white">
+					<span class="text-gradient">Wake up</span>
+				</a>
+			</div>			
+		</article>
+		<!-- Posts -->
+		<article class="flex flex-col gap-6 w-full">
+			<h2 class="text-xl font-extrabold">Posts</h2>
+			<article class="flex flex-col gap-2">
+				{orderedPosts.map(post => <PostCard post={post} type="mini"/>)}				
+			</article>
+		</article>
+		<!-- Notes -->
+		<article>
+		</article>		
+	</main>
+</Layout>

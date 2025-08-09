@@ -1,0 +1,28 @@
+---
+import PostCard from "@/components/posts/PostCard.astro";
+import Layout from "@/layouts/Layout.astro";
+import { getPostsTags, getPosts } from "@/libs/functions";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+    const posts = await getPosts()
+    const postsTags = getPostsTags(posts)
+
+    return postsTags.map(tag => ({
+        params: { tag: tag},
+        props: { tag, posts }
+    }));
+}
+
+const { tag, posts } = Astro.props
+const postsOfTag = posts.filter(post => post.data.tags.includes(tag))
+---
+
+<Layout title={`Tag: ${tag}`}>
+    <main>
+        <h1>Tags -> #{tag}</h1>
+        <article>
+            {postsOfTag.map(post => <PostCard post={post} type="mini"/>)}
+        </article>
+    </main>
+</Layout>

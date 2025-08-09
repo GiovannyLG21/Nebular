@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme {
+    /** Color primario: Nebular **/
+    --color-primary: #5e548e;
+    --color-primary-50: #f4f4fa;
+    --color-primary-100: #e7e7f2;
+    --color-primary-200: #d4d4e9;
+    --color-primary-300: #b6b7da;
+    --color-primary-400: #9393c7;
+    --color-primary-500: #7c79b8;
+    --color-primary-600: #6f67a9;
+    /* Base */
+    --color-primary-700: #5e548e;
+    --color-primary-800: #574e7f;
+    --color-primary-900: #494266;
+    --color-primary-950: #2f2b40;    
+
+    /** Color secundario: Cosmos **/
+    --color-secondary: #087096;
+    --color-secondary-50: #ebfeff;
+    --color-secondary-100: #cdf9ff;
+    --color-secondary-200: #a1f1ff;
+    --color-secondary-300: #60e5ff;
+    --color-secondary-400: #18cef8;
+    --color-secondary-500: #00b1de;
+    --color-secondary-600: #0096c7;
+    /* Base */
+    --color-secondary-700: #087096;
+    --color-secondary-800: #105a7a;
+    --color-secondary-900: #124c67;
+    --color-secondary-950: #053147;
+
+    /** Hover **/
+    --color-hover: var(--color-secondary);
+
+    /** Text **/
+    --color-primary-text: var(--color-primary);
+    --color-secondary-text: var(--color-secondary-800);
+}
+
+
+/** GENERALES **/
+
+html {
+    font-family: 'Nunito', Arial, Helvetica, sans-serif;
+    color: var(--color-primary);
+}
+
+/* Fondo predeterminado */
+html::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+        linear-gradient(to bottom, var(--color-primary-200), var(--color-gray-200) 25%),
+        linear-gradient(to bottom, var(--color-secondary-100), var(--color-gray-200) 25%);
+    background-size: 50% 100%, 50% 100%;
+    background-position: left, right;
+    background-repeat: no-repeat;
+    filter: blur(25px);
+    opacity: 50%;
+}
+
+/* Fondo para index */
+html[data-index=true] {
+    background-image:
+        linear-gradient(to bottom right, var(--color-primary-500), var(--color-gray-100) 50%),
+        linear-gradient(to bottom left, var(--color-secondary-200), var(--color-gray-100) 50%);
+    background-size: 50.1% 100%, 50.1% 100%;
+    background-position: left, right;
+    background-repeat: no-repeat;
+}
+
+/* Tema oscuro */
+html[data-theme=dark],
+html[data-theme=dark]::before {
+    background: #053147;
+    background: linear-gradient(90deg, rgba(5, 49, 71, 1) 0%, rgba(47, 43, 64, 1) 100%);
+    color: white;
+}
+
+
+/** LAYOUT **/
+
+body {
+    @apply relative
+}
+
+#root {
+    @apply flex flex-col gap-9 p-2 lg:mx-[17rem] md:mx-40 sm:mx-20;
+}
+
+main {
+    @apply flex flex-col gap-8 w-full transition-all duration-200;
+}
+
+
+/** BUTTONS +*/
+
+.btn {
+    @apply bg-primary text-gray-100 px-4 py-1 rounded-lg font-bold shadow-lg;
+}
+
+.btn-gradient {
+    @apply bg-gradient-to-r from-primary to-secondary-600 text-gray-200;
+}
+
+.btn-gradient:hover {
+    @apply text-white bg-gradient-to-r from-primary-700 to-secondary-500;
+}
+
+.btn-white {
+    @apply bg-gray-100 text-primary-400 hover:bg-white hover:text-primary;
+}
+
+
+/** TEXT **/
+
+.text-gradient {
+    @apply bg-gradient-to-r from-primary to-secondary-600 bg-clip-text text-transparent
+}
+
+.main-title {
+    @apply text-2xl font-bold text-left
+}
