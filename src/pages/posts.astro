@@ -1,0 +1,21 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import PostsComponent from '@/components/posts/PostsComponent.astro'
+import TagsComponent from '@/components/posts/TagsComponent.astro'
+---
+
+<Layout title="Posts">
+    <main>
+        <h1 class="main-title">Posts</h1>
+        <article class="flex flex-row gap-8">
+            <!-- Posts -->
+            <section>
+                <PostsComponent />
+            </section>
+            <!-- Tags -->
+            <aside class="max-w-[12rem]">
+                <TagsComponent />
+            </aside>
+        </article>        
+    </main>
+</Layout>

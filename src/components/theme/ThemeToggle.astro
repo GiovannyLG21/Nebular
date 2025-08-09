@@ -1,0 +1,26 @@
+---
+import SunIcon from '@/assets/icons/SunIcon.astro';
+import MoonIcon from '@/assets/icons/MoonIcon.astro';
+---
+
+<div id="theme-toggle" class="flex flex-row" title="Cambiar tema" transition:persist>
+    <SunIcon/>
+    <MoonIcon/>
+</div>
+
+<script>    
+    const setTheme = (theme: string) => {
+        localStorage.setItem('theme', theme)
+        document.documentElement.setAttribute('data-theme', theme)
+    }
+    
+    const themeToggle = document.getElementById('theme-toggle')        
+    themeToggle?.addEventListener('click', () => {         
+        let actualTheme = localStorage.getItem('theme') === 'light' ? 'dark' : 'light'    
+        if (actualTheme) setTheme(actualTheme)    
+    })
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
+        const systemTheme = e.matches ? 'light' : 'dark'
+        setTheme(systemTheme)
+    })
+</script>

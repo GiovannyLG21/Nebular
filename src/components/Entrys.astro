@@ -1,0 +1,33 @@
+---
+interface EntryType {
+    name: string,
+    href: string
+}
+
+const entrys: EntryType[]  = [
+    {
+        name: 'Inicio',
+        href: '/'
+    },
+    {
+        name: 'About',
+        href: '/about'
+    },
+    {
+        name: 'Blog',
+        href: '/posts'
+    },
+    {
+        name: 'Notes',
+        href: '/notes'
+    }
+]
+---
+
+{
+    entrys.map(({name, href}) => (
+        <li>
+            <a href={href}>{name}</a>
+        </li>
+    ))
+}
