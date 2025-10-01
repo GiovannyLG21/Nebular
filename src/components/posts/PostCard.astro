@@ -4,15 +4,31 @@ import { formatPostDate, type PostType } from '@/libs/functions'
 interface Props {
     post: PostType
     type?: 'mini' | 'normal'
+    animation?: boolean
 }
-const { post, type = 'normal' } = Astro.props
+
+const { post, type = 'normal', animation = false } = Astro.props
 const { slug, data } = post
 const { title, description, date } = data
+
 const formatedDate = formatPostDate(date)
 ---
 
-<section class={`flex ${type === 'normal' ? 'flex-col gap-1' : 'flex-row-reverse justify-between'}`}>
-    <span class="text-sm text-gray-400">{formatedDate}</span>
-    <a href={`/posts/${slug}`} class="text-md font-semibold text-secondary-text hover:underline">{title}</a>
-    {type === 'normal' && <p class="text-gray-600">{description}</p>}
-</section>
+{type === 'normal' && (
+    <article class={`card animate flex-col gap-1 ${animation ? 'card--animation' : ''}`}>
+        <a href={`/posts/${slug}`} class="p-4">
+            <span class="card__span span span--secondary">{formatedDate}</span>
+            <h2 class="card__title link">{title}</h2>
+            <p class="card__content">{description}</p>
+        </a>
+    </article>
+)}
+
+{type === 'mini' && (
+    <article class="group animate">
+        <a href={`/posts/${slug}`} class="group flex flex-row-reverse justify-between link link--highlight">
+            <span class="span span--secondary text-text-neutral group-hover:!font-semibold">{formatedDate}</span>
+            <h2 class="basis-[12rem] xs:basis-[75%] truncate">{title}</h2>        
+        </a>
+    </article>
+)}

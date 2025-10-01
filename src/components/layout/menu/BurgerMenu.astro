@@ -1,0 +1,79 @@
+---
+import { Entrys } from '@/components/components'
+---
+
+<section id="burger-menu" class="burger-menu fixed top-0 left-0 z-100 w-full overflow-hidden bg-gradient animate 
+flex flex-col items-center justify-center md:hidden" transition:persist>
+    <ul class="flex flex-col gap-4 items-center justify-center">
+        <Entrys className="link link--big"/>
+        <li>
+            <a href="https://astro.build/" id="docs" target="_blank"
+            class="link link--nav link--nav--secondary">
+                Docs
+            </a>
+        </li>     
+    </ul>
+</section>
+
+<style>
+
+    .burger-menu {
+        --top-height: 0;
+        height: 0;
+        top: var(--top-height);
+    }
+
+    body[data-menu=active] {
+        overflow: hidden;
+
+        .burger-menu {
+            height: calc(100% - var(--top-height));
+        }
+
+        main,
+        footer {
+            opacity: 0; 
+            pointer-events: none;
+        }
+
+        #burger-button {
+            .menu-icon {
+                width: 0;
+            }
+
+            .close-icon {
+                width: 100%;
+            }
+        }    
+    }
+
+</style>
+
+<script>
+    function burgerMenu() {
+        const navbarHeight = document.getElementById('navbar')?.offsetHeight
+        const burgerMenu = document.getElementById('burger-menu')
+        const burgerButton = document.getElementById('burger-button')        
+
+        const setMenuStatus = (status: 'active' | 'inactive') => document.body.setAttribute('data-menu', status)
+
+        const toggleBurgerMenu = () => {
+            const newMenuStatus = document.body.getAttribute('data-menu') === 'inactive' ? 'active' : 'inactive'
+            setMenuStatus(newMenuStatus)
+            if (burgerButton) burgerButton.title = newMenuStatus === 'active' ? 'Close menu' : 'Open menu'
+        }
+
+        setMenuStatus('inactive')
+        if (navbarHeight && burgerMenu) burgerMenu.style.setProperty('--top-height', `${navbarHeight}px`)
+
+        burgerButton?.addEventListener('click', toggleBurgerMenu)  
+        //MD: 768px
+        window.addEventListener('resize', () => window.innerWidth > 768 ? setMenuStatus('inactive') : '')
+
+        document.addEventListener('astro:before-preparation', () => {
+            burgerButton?.removeEventListener('click', toggleBurgerMenu)
+        }, { once: true })
+    }
+
+    document.addEventListener('astro:page-load', burgerMenu)
+</script>

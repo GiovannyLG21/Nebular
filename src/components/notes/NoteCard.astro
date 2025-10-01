@@ -1,0 +1,28 @@
+---
+import '@/styles/notes.css'
+import { render } from 'astro:content'
+import { formatNoteDate, type NoteType} from '@/libs/functions'
+
+interface Props {
+    note: NoteType
+}
+
+const { note } = Astro.props
+const { data, slug } = note
+const { title, date } = data
+
+const formatDate = formatNoteDate(date)
+const { Content } = await render(note)
+---
+
+<article class="card animate px-8 py-6 sm:basis-[47%]">
+    <a href={`/notes/${slug}`} class="flex flex-col gap-4">
+        <header class="flex flex-col gap-1">
+            <h2 class="card__title title-h2 hover:underline">{title}</h2>
+            <span class="card__span span span--secondary">{formatDate}</span>
+        </header>
+        <div class="card__content content line-clamp-4">
+            <Content />
+        </div>
+    </a>
+</article>

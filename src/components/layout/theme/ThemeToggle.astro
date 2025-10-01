@@ -1,0 +1,36 @@
+---
+import { SunIcon, MoonIcon } from '@/assets/icons/icons'
+---
+
+<div id="theme-toggle" title="Change theme" class="relative h-full flex flex-row icon icon--big">
+    <SunIcon/>
+    <MoonIcon/>
+</div>
+
+<script>    
+    function toggleTheme() {
+        const setTheme = (theme: string) => {
+            localStorage.setItem('theme', theme)
+            document.documentElement.setAttribute('data-theme', theme)            
+        }
+
+        const handleToggleClick = () => { 
+            let newTheme = localStorage.getItem('theme') === 'light' ? 'dark' : 'light'    
+            if (!newTheme) {
+                const systemTheme =  window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark' 
+                newTheme = systemTheme
+            }
+            setTheme(newTheme)    
+        }
+
+        const themeToggle = document.getElementById('theme-toggle') 
+           
+        themeToggle?.addEventListener('click', handleToggleClick)
+
+        document.addEventListener('astro:before-preparation', () => {
+            themeToggle?.removeEventListener('click', handleToggleClick)
+        }, { once: true });
+    }
+
+    document.addEventListener('astro:page-load', toggleTheme)
+</script>

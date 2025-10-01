@@ -1,0 +1,25 @@
+---
+import { getPosts, getTags } from '@/libs/functions'
+import { TagCard, LinkButton } from '@/components/components'
+import { ArrowRightIcon, TagIcon } from '@/assets/icons/icons'
+
+const posts = await getPosts()
+const tags = getTags(posts).slice(0, 20)
+---
+
+<div class="flex flex-col gap-4 w-full sm:max-w-[20rem]">
+    <h2 class="title-h2 icon-container">
+        <span class="icon">
+            <TagIcon />
+        </span>
+        Tags
+    </h2>
+    <section>
+        <ul class="flex flex-row flex-wrap gap-2 max-h-[13rem] items-center overflow-hidden">
+            { tags.map(tag => <TagCard tag={tag} />) }
+        </ul>
+    </section>
+    <div class="w-full flex justify-end">
+        <LinkButton name="View all" href="/tags" Icon={ArrowRightIcon}/>
+    </div>
+</div>

@@ -10,13 +10,13 @@ readtime: 4
 
 Optimizar imágenes es fundamental para mejorar la velocidad de carga de tu sitio web, reducir el consumo de ancho de banda y ofrecer una mejor experiencia de usuario. Imágenes pesadas pueden ralentizar tu página y afectar negativamente el SEO.
 
-## Herramientas recomendadas
+# Herramientas recomendadas
 
 - **TinyPNG**: Permite comprimir imágenes PNG y JPG sin perder calidad visual.
 - **ImageOptim**: Aplicación para Mac que reduce el tamaño de archivos de imagen.
 - **Squoosh**: Herramienta web de Google para comprimir y convertir imágenes a diferentes formatos.
 
-## Buenas prácticas
+# Buenas prácticas
 
 - Usa el formato adecuado (WebP, JPEG, PNG, SVG).
 - Ajusta el tamaño de las imágenes al tamaño real de visualización.

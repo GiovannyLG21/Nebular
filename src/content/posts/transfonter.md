@@ -6,7 +6,7 @@ tags: ["web development", "fonts", "transfonter"]
 readtime: 5
 ---
 
-## What is Transfonter?
+# What is Transfonter?
 
 **Transfonter** is a web-based tool that allows you to create a subset of your fonts. This means you can select only the characters you need from a font, reducing its size and improving your website's performance. It's particularly useful for web developers who want to optimize their sites by using only the necessary font characters
 

@@ -1,0 +1,20 @@
+---
+import { getPostHeadings, type PostType } from '@/libs/functions'
+
+interface Props {
+    post: PostType
+}
+
+const { post } = Astro.props
+const headings = getPostHeadings(post)
+---
+
+<ul class="flex flex-col gap-1">
+    {headings?.map(({ slug, text }) => {
+        return (
+            <li>
+                <a href={`#${slug}`} class="link link--small before-symbol !leading-0">{text}</a>
+            </li>
+        )
+    })}    
+</ul>

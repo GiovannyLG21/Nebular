@@ -1,0 +1,14 @@
+---
+import { LinkButton } from '@/components/components'
+interface Props {
+    prevPage?: string,
+    nextPage?: string
+}
+
+const { prevPage, nextPage } = Astro.props
+---
+
+<div class={`flex flex-row ${nextPage && !prevPage ? 'justify-end' : prevPage && !nextPage ? 'justify-start' : 'justify-between'}`}>
+    { prevPage && (<LinkButton name="Back page" href={prevPage}/>)} 
+    { nextPage && (<LinkButton name="Next page" href={nextPage} />)}
+</div>  

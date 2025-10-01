@@ -1,0 +1,50 @@
+---
+interface Props {
+    className?: string,
+    direction?: 'col' | 'row',
+    gap?: number,
+    center?: boolean
+    docsItem?: boolean
+}
+
+const { className, direction = 'row', gap = 4, center = true, docsItem = false } = Astro.props
+
+const entrys: { name: string, href: string }[] = [
+    {
+        name: 'Home',
+        href: '/'
+    },
+    {
+        name: 'About',
+        href: '/about'
+    },
+    {
+        name: 'Blog',
+        href: '/posts'
+    },
+    {
+        name: 'Notes',
+        href: '/notes'
+    }
+]
+---
+
+    {    
+        <ul class={`flex flex-${direction} gap-${gap} ${center ? 'justify-center items-center' : ''} ${className === 'link--nav' ? 'md:mr-2 lg:mr-12' : ''}`}>                
+            {
+                entrys.map(({name, href}) => (
+                    <li>
+                        <a href={href} class={`link ${className}`}>{name}</a>
+                    </li>
+                ))
+            } 
+            { docsItem && (
+                <li>
+                    <a href="https://astro.build/" id="docs" target="_blank"
+                    class="link link--nav link--nav--secondary">
+                        Docs
+                    </a>
+                </li>
+            )}                 
+        </ul>
+    }

@@ -1,0 +1,146 @@
+---
+import { SearchIcon } from '@/assets/icons/icons'
+
+---
+
+<dialog id="search-modal" class="modal fixed inset-0 w-full h-full bg-transparent backdrop-blur-xl" transition:persist>
+    <section id="search-modal__container" class="flex flex-col w-full h-full items-center p-10">
+        <div id="search-modal__content" class="flex flex-col bg-white dark:bg-muted rounded-lg shadow-lg p-8 w-full md:w-[85%] lg:w-[66%] animate">
+            <!-- Input  -->
+             <div class="flex flex-col">
+                <div class="flex flex-row items-center gap-2 bg-gray-100 text-text-highlight-secondary dark:bg-secondary rounded-md px-2 py-2 w-full">
+                    <span class="icon">
+                         <SearchIcon />
+                    </span>
+                    <input id="search" type="text" placeholder="Search" class="search focus-visible:outline-0 w-full">
+                </div>
+                <span class="span hidden mt-2 text-neutral search-results--length"></span>
+            </div>
+            <!-- Results section -->
+            <section class="search-results flex flex-col gap-2 w-full max-h-[60vh] overflow-y-auto"></section>
+        </div>
+    </section>
+</dialog>
+
+<style>
+    body.search {
+        overflow: hidden;
+        opacity: 0;
+    }
+
+    #search-modal__content.results {
+        gap: 1.5rem;
+    } 
+</style>
+
+<script >    
+import type { CollectionType } from '@/libs/search'
+
+    function Search() {
+        const searchButton = document.getElementById('search-button')
+        const searchModal = document.getElementById('search-modal') as HTMLDialogElement
+        const searchModalContainer = document.getElementById('search-modal__container')
+        
+        
+        if(!searchButton || !searchModal || !searchModalContainer) return 
+        const searchShowModal = () => {
+            const openSearchModal = () => {
+                searchModal.open ? searchModal.close() : searchModal.showModal()
+                document.body.classList.add('search')
+            }
+            
+            const closeSearchModal = (e: Event) => {
+                if (e.target === searchModalContainer) {
+                    searchModal.close()
+                    document.body.classList.remove('search')
+                }
+            }
+        
+            searchButton?.addEventListener('click', openSearchModal)
+            searchModal?.addEventListener('click', closeSearchModal)
+
+            document.addEventListener('astro:before-preparation', () => {
+                searchButton?.removeEventListener('click', openSearchModal)
+                searchModal?.removeEventListener('click', closeSearchModal)
+            }, { once: true })  
+        }
+
+        const searchInput = () => {
+            const searchModalContent = document.getElementById('search-modal__content')
+            const searchInput = searchModal.querySelector('input.search') as HTMLInputElement  
+            const searchResLen = searchModal.querySelector('.search-results--length')
+            const searchResContainer = searchModal.querySelector('.search-results')              
+            let searchInputVal = searchInput.value          
+
+            if (!searchInput || !searchResContainer || !searchModalContent || !searchResLen) return
+            
+            interface SearchResponse {
+                response: string,
+                data: {
+                    dataset: CollectionType[number],
+                    match: string
+                }[] | []
+            }
+
+            const activeResContainer = (content: string, resultsLength: number) => {
+                searchModalContent.classList.add('results')
+                searchResLen.textContent = `${resultsLength} results found`
+                searchResLen.classList.remove('hidden')
+                searchResContainer.innerHTML = content                 
+            }
+
+            const inactiveResContainer = () =>  { 
+                searchModalContent.classList.remove('results') 
+                searchResContainer.innerHTML = ''
+                searchResLen.classList.add('hidden')
+            }
+
+            const executeSearch = () => {
+                searchInputVal = searchInput.value                
+                if (searchInputVal === '') return inactiveResContainer()
+                fetch('http://localhost:4321/api/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        query: searchInputVal
+                    })
+                })
+                .then(response => response.json())
+                .then((data: SearchResponse) => {                    
+                    if (!data.data.length) return inactiveResContainer()
+                    const searchResult = data.data.map(result => {
+                        const { collection, slug, data } = result.dataset
+                        const match = result.match
+                        const { title } = data
+                        
+                        const matchElement = match.replace(new RegExp(searchInputVal, 'gi'), (replacedMatch) => {
+                            return `<span class="text-text-highlight-secondary font-semibold">${replacedMatch}</span>`
+                        })
+                        const searchElement = `
+                            <div class="flex flex-col">
+                                <h2>
+                                    <a href="${collection}/${slug}" class="link link--highlight">${title}</a>
+                                </h2>
+                                <p class="paragraph text-neutral">${matchElement}</p>
+                            </div>
+                        `
+                        return searchElement
+                    })                                                            
+                    activeResContainer(searchResult.join(''), searchResult.length)
+                })
+            }
+            searchInput.addEventListener('input', executeSearch)
+
+            document.addEventListener('astro:before-preparation', () => {
+                searchInput.removeEventListener('input', executeSearch)
+            }, { once: true })
+        }
+
+        searchShowModal()
+        searchInput()
+    }
+
+    document.addEventListener('astro:page-load', Search)
+</script>

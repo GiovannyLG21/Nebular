@@ -1,17 +1,20 @@
 ---
-import { getCollection } from 'astro:content';
-import { getPosts, groupPostsByYear } from '@/libs/functions';
-import PostCard from './PostCard.astro';
+import { type PostType, groupPostsByYear } from '@/libs/functions'
+import { PostCard } from '@/components/components'
 
-const posts = await getPosts()
-const postsGrouped = groupPostsByYear(posts)
+interface Props {
+    groupedPosts: ReturnType<typeof groupPostsByYear>
+}
+const { groupedPosts } = Astro.props
 ---
 
-<div class="flex flex-col gap-16">
-    {postsGrouped.map(({ year, posts }) => (
+<div class="flex flex-col gap-12">
+    { groupedPosts.map(({ year, posts: yearPosts }) => (
         <article class="flex flex-col gap-6">
-            <h2 class="text-md font-bold">{year}</h2>
-            {posts.map(post => <PostCard post={post}/>)}
+            <h2 class="title-h2">{year}</h2>
+            <section class="flex flex-col gap-4 xs:gap-6">
+                { yearPosts.map(post => <PostCard post={post} animation />) }
+            </section>
         </article>
     ))}
 </div>

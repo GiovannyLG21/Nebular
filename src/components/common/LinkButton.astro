@@ -1,0 +1,17 @@
+---
+interface Props {
+    name: string,
+    href: string,
+    className?: string,
+    Icon?: any
+}
+
+const { name, href, className, Icon } = Astro.props
+---
+
+<a href={href} class={`link animate group icon-container hover:text-hover-text-secondary ${className ? className : ''}`}>
+    {name}
+    <span class="icon group-hover:translate-x-1 animate">
+        {Icon && <Icon />}
+    </span>
+</a>        

@@ -1,0 +1,40 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import { getNotes } from '@/libs/functions'
+import { NoteCard, PaginationNav } from '@/components/components.ts'
+import { NoteIcon } from '@/assets/icons/icons' 
+import type { Page } from 'astro'
+
+export async function getStaticPaths({ paginate }: any) {
+    const notes = await getNotes()
+
+    return paginate(notes, { pageSize: 4 })
+}
+
+interface Props {
+    page: Page<any>
+}
+
+const { page } = Astro.props
+
+const notes = page.data
+const prevPage = page.url.prev
+const nextPage = page.url.next
+---
+
+<Layout title="Notes">
+    <main>
+        <h1 class="title-h1 icon-container">
+            <span class="icon icon--big">
+                <NoteIcon />
+            </span>
+            Notes
+        </h1>
+        <section class="flex flex-row flex-wrap gap-8">
+            { notes.map(note => <NoteCard note={note} />) }                         
+        </section>
+        <div>
+            <PaginationNav prevPage={prevPage} nextPage={nextPage}/>
+        </div>
+    </main>
+</Layout>

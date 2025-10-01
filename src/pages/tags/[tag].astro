@@ -1,28 +1,38 @@
 ---
-import PostCard from "@/components/posts/PostCard.astro";
-import Layout from "@/layouts/Layout.astro";
-import { getPostsTags, getPosts } from "@/libs/functions";
-import { getCollection } from "astro:content";
+import Layout from '@/layouts/Layout.astro'
+import { getTags, getPosts, getPostsOfTag } from '@/libs/functions'
+import { PostCard } from '@/components/components.ts'
+import { ArrowRightIcon, TagIcon } from '@/assets/icons/icons'
 
 export async function getStaticPaths() {
     const posts = await getPosts()
-    const postsTags = getPostsTags(posts)
+    const tags = getTags(posts)
 
-    return postsTags.map(tag => ({
-        params: { tag: tag},
-        props: { tag, posts }
-    }));
+    return tags.map(tag => ({
+        params: { tag },
+        props: { tag, posts: getPostsOfTag(tag, posts) }
+    }))
 }
 
 const { tag, posts } = Astro.props
-const postsOfTag = posts.filter(post => post.data.tags.includes(tag))
 ---
 
 <Layout title={`Tag: ${tag}`}>
     <main>
-        <h1>Tags -> #{tag}</h1>
-        <article>
-            {postsOfTag.map(post => <PostCard post={post} type="mini"/>)}
-        </article>
+        <h1 class="title-h1 flex items-center gap-2">
+            <a href="/tags" class="icon-container hover:underline">
+                <span class="icon icon--big">
+                    <TagIcon />
+                </span>
+                Tags
+            </a>
+            <span class="w-8">
+                <ArrowRightIcon type={2}/>
+            </span>
+            <p class="text-text-highlight-secondary dark:text-text">#{tag}</p>
+        </h1>
+        <section class="flex flex-col gap-6 max-h-[50vh] py-4 pl-2 pr-8 overflow-y-auto">
+            {posts.map(post => <PostCard post={post} type="normal" />)}
+        </section>
     </main>
 </Layout>

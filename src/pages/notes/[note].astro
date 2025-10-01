@@ -1,0 +1,40 @@
+---
+import { render } from 'astro:content'
+import Layout from '@/layouts/Layout.astro'
+import { formatNoteDate, getNotes } from '@/libs/functions'
+import { NoteIcon } from '@/assets/icons/icons' 
+
+export async function getStaticPaths() {
+    const notes = await getNotes()
+
+    return notes.map(note => ({
+        params: { note: note.slug },
+        props: { note }
+    }))
+}
+
+const { note } = Astro.props
+const { data } = note
+const { title, date } = data
+
+const formatDate = formatNoteDate(date)
+const { Content } = await render(note)
+---
+<Layout title={title}>
+    <main>
+        <article class="flex flex-col gap-4">
+            <header class="flex flex-col gap-4">
+                <h1 class="title-h1 icon-container">
+                    <span class="icon icon--big">
+                        <NoteIcon />
+                    </span>
+                    {title}
+                </h1>
+                <span class="span span--secondary text-text-neutral">{formatDate}</span>
+            </header>
+            <div class="prose dark:prose-invert max-w-none ml-2">
+                <Content />
+            </div>
+        </article>
+    </main>
+</Layout>

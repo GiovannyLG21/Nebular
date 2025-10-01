@@ -1,24 +1,21 @@
 ---
 import '@/styles/global.css'
 import { ClientRouter } from 'astro:transitions'
-import Navbar from '@/components/Navbar.astro';
-import LoadTheme from '@/components/theme/LoadTheme.astro';
-import Footer from '@/components/Footer.astro';
+import { LoadTheme, Navbar, Footer } from '@/components/components.ts'
 
 interface Props {
 	title?: string
-	animateNavbar?: boolean
 	index?: boolean
 }
-const { title, animateNavbar, index } = Astro.props
+const { title, index = false } = Astro.props
 ---
 
 <!Doctype html>
-<html lang="es" data-index={index ? index : false}>
+<html lang="en" data-index={index}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="icon" type="image/x-icon" href="favicon.ico" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 		<title>{title ? `${title} • Nebular` : 'Nebular'}</title>
 		<ClientRouter/>
@@ -26,7 +23,7 @@ const { title, animateNavbar, index } = Astro.props
 	</head>
 	<body>
 		<div id="root">
-			<Navbar animate={animateNavbar} />
+			<Navbar animate={index} />			
 			<slot/>	
 			<Footer />
 		</div>		

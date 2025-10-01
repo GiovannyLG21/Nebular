@@ -1,0 +1,5 @@
+@import './global.css';
+
+.card--note .content p {
+    @apply relative pl-5 before:content-['❝'] before:text-3xl before:text-text-muted before:absolute before:left-0;
+}

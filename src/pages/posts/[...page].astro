@@ -1,0 +1,47 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import { PostsComponent, TagsComponent, PaginationNav } from '@/components/components.ts'
+import { PostIcon } from '@/assets/icons/icons'
+import { getPosts, groupPostsByYear } from '@/libs/functions'
+import type { Page } from 'astro'
+
+export async function getStaticPaths({ paginate }: any){
+    const posts = await getPosts()
+
+    return paginate(posts, { pageSize: 4 })
+ }
+
+interface Props {
+   page: Page<any>
+}
+
+const { page } = Astro.props
+
+const posts = groupPostsByYear(page.data)
+const nextPage = page.url.next
+const prevPage = page.url.prev
+---
+
+<Layout title="Posts">
+    <main>
+        <h1 class="title-h1 relative icon-container">
+            <span class="icon icon--big">
+                <PostIcon />
+            </span>
+            Posts
+        </h1>
+        <div class="flex flex-col sm:flex-row gap-12 mt-4">
+            <!-- Posts -->
+            <article>
+                <PostsComponent groupedPosts={posts}/>
+            </article>
+            <!-- Tags -->
+            <aside>
+                <TagsComponent />
+            </aside>
+        </div>   
+        <div class="w-full">
+            <PaginationNav prevPage={prevPage} nextPage={nextPage}/>
+        </div>     
+    </main>
+</Layout>

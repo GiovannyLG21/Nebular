@@ -11,6 +11,11 @@
             actualTheme = systemTheme 
         } 
         setTheme(actualTheme)
+
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
+            const systemTheme = e.matches ? 'light' : 'dark'
+            setTheme(systemTheme)
+        })
     }
 
     loadTheme()

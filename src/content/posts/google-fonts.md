@@ -10,7 +10,7 @@ readtime: 3
 
 Google Fonts es un servicio gratuito que ofrece una amplia variedad de tipografías para usar en proyectos web. Permite mejorar la apariencia de tu sitio sin preocuparte por licencias.
 
-## Cómo usar Google Fonts
+# Cómo usar Google Fonts
 
 1. Ve a [Google Fonts](https://fonts.google.com/).
 2. Elige la fuente que más te guste.

@@ -4,6 +4,10 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @theme {
+    /* Breakpoint */
+    --breakpoint-xs: 480px;
+    --transition-duration: 200ms;
+
     /** Color primario: Nebular **/
     --color-primary: #5e548e;
     --color-primary-50: #f4f4fa;
@@ -17,7 +21,7 @@
     --color-primary-700: #5e548e;
     --color-primary-800: #574e7f;
     --color-primary-900: #494266;
-    --color-primary-950: #2f2b40;    
+    --color-primary-950: #2f2b40;
 
     /** Color secundario: Cosmos **/
     --color-secondary: #087096;
@@ -34,20 +38,61 @@
     --color-secondary-900: #124c67;
     --color-secondary-950: #053147;
 
+    --color-surface: var(--color-gray-700);
+    --color-neutral: var(--color-gray-500);
+    --color-muted: var(--color-gray-200);
+
     /** Hover **/
     --color-hover: var(--color-secondary);
+    --color-hover-text: white;
+    --color-hover-text-secondary: var(--color-secondary);
 
     /** Text **/
-    --color-primary-text: var(--color-primary);
-    --color-secondary-text: var(--color-secondary-800);
+    --color-text: var(--color-surface);
+    --color-text-neutral: var(--color-neutral);
+    --color-text-muted: var(--color-muted);
+    --color-text-highlight: var(--color-primary);
+    --color-text-highlight-secondary: var(--color-secondary);
 }
 
+html[data-theme="dark"] {
+    --color-bg-gradient-primary: #053147;
+    --color-bg-gradient-secondary: #2f2b40;
 
-/** GENERALES **/
+    --color-primary: #cce0ff;
+    --color-secondary: var(--color-gray-700);
+    --color-surface: var(--color-gray-300);
+    --color-neutral: var(--color-gray-400);
+    --color-muted: var(--color-gray-800);
+
+    /** Hover **/
+    --color-hover: var(--color-secondary);
+    --color-hover-text: var(--color-primary);
+    --color-hover-text-secondary: var(--color-primary);
+
+    /** Text **/
+    --color-text: var(--color-surface);
+    --color-text-neutral: var(--color-neutral);
+    --color-text-muted: var(--color-muted);
+    --color-text-highlight: var(--color-primary);
+    --color-text-highlight-secondary: var(--color-primary);
+
+    .astro-code,
+    .astro-code span {
+        color: var(--shiki-dark) !important;
+        background-color: var(--shiki-dark-bg) !important;
+        /* Opcional, si también quieres estilos de fuente */
+        font-style: var(--shiki-dark-font-style) !important;
+        font-weight: var(--shiki-dark-font-weight) !important;
+        text-decoration: var(--shiki-dark-text-decoration) !important;
+    }
+}
+
+/** LAYOUT **/
 
 html {
     font-family: 'Nunito', Arial, Helvetica, sans-serif;
-    color: var(--color-primary);
+    color: var(--color-text);
 }
 
 /* Fondo predeterminado */
@@ -58,16 +103,16 @@ html::before {
     z-index: -1;
     pointer-events: none;
     background-image:
-        linear-gradient(to bottom, var(--color-primary-200), var(--color-gray-200) 25%),
-        linear-gradient(to bottom, var(--color-secondary-100), var(--color-gray-200) 25%);
+        linear-gradient(to bottom, var(--color-primary-200), var(--color-gray-100) 25%),
+        linear-gradient(to bottom, var(--color-secondary-100), var(--color-gray-100) 25%);
     background-size: 50% 100%, 50% 100%;
     background-position: left, right;
     background-repeat: no-repeat;
     filter: blur(25px);
-    opacity: 50%;
+    opacity: 75%;
 }
 
-/* Fondo para index */
+/* Fondo index */
 html[data-index=true] {
     background-image:
         linear-gradient(to bottom right, var(--color-primary-500), var(--color-gray-100) 50%),
@@ -80,52 +125,269 @@ html[data-index=true] {
 /* Tema oscuro */
 html[data-theme=dark],
 html[data-theme=dark]::before {
-    background: #053147;
-    background: linear-gradient(90deg, rgba(5, 49, 71, 1) 0%, rgba(47, 43, 64, 1) 100%);
-    color: white;
+    background: linear-gradient(90deg, var(--color-bg-gradient-primary) 0%, var(--color-bg-gradient-secondary) 100%);
+    color: var(--color-text);
 }
 
+/* Fondo degradado */
+.bg-gradient::before {
+    @apply content-[''] absolute inset-0 -z-1;
+    background-image:
+        linear-gradient(to bottom, var(--color-primary-200), var(--color-primary-200) 100%),
+        linear-gradient(to bottom, var(--color-secondary-100), var(--color-secondary-200) 100%);
+    background-size: 50% 100%, 50% 100%;
+    background-position: left, right;
+    background-repeat: no-repeat;
+    filter: blur(25px);
+    opacity: 25%;
+}
 
-/** LAYOUT **/
+/* Fondo degradado nav */
+.bg-gradient--nav {
+    @apply fixed w-full h-[6rem] inset-0 z-10 bg-gray-100;
+}
+
+.bg-gradient--nav::before {
+    @apply content-[''] absolute inset-0 blur-[25px] h-[7rem];
+    background-image:
+        linear-gradient(to bottom, var(--color-primary-100), var(--color-gray-100) 100%),
+        linear-gradient(to bottom, var(--color-secondary-100), var(--color-gray-100) 100%);
+    background-size: 50.1% 100%, 50.1% 100%;
+    background-position: left, right;
+    background-repeat: no-repeat;
+}
+
+/* Fondo degradado dark */
+html[data-theme=dark] {
+
+    .bg-gradient::before {
+        background: linear-gradient(90deg, var(--color-bg-gradient-primary) 0%, var(--color-bg-gradient-secondary) 100%);
+    }
+
+    .bg-gradient--nav {
+        background-color: var(--color-bg-gradient-secondary);
+    }
+
+    .bg-gradient--nav::before {
+        background: linear-gradient(90deg, var(--color-bg-gradient-primary) 0%, var(--color-bg-gradient-secondary) 100%);
+    }
+}
+
+/* Breakpoint   prefix
+      sm	    40rem  (640px)**
+      md	    48rem  (768px)  ✅
+      lg	    64rem  (1024px) ✅
+      xl	    80rem  (1280px) ✅
+*/
+
+/** Contenedores **/
 
 body {
-    @apply relative
+    @apply transition-opacity duration-[var(--transition-duration)];
 }
 
 #root {
-    @apply flex flex-col gap-9 p-2 lg:mx-[17rem] md:mx-40 sm:mx-20;
+    @apply flex flex-col gap-10 p-2 min-h-[100vh] mx-[1rem] sm:mx-[2rem] md:mx-[3rem] lg:mx-[9rem] xl:mx-[17rem];
 }
 
 main {
-    @apply flex flex-col gap-8 w-full transition-all duration-200;
+    @apply flex flex-col flex-1 gap-6 sm:gap-10 w-full transition-opacity duration-[var(--transition-duration)];
 }
 
 
-/** BUTTONS +*/
+/** Titles **/
+
+.title-h1 {
+    @apply text-xl sm:text-2xl font-bold text-text-highlight
+}
+
+.title-h1--big {
+    @apply text-2xl sm:text-3xl
+}
+
+.title-h2 {
+    @apply text-base font-bold text-text-highlight
+}
+
+.title-h2--big {
+    @apply text-xl
+}
+
+/** Text **/
+
+.paragraph {
+    @apply text-sm sm:text-base font-normal;
+}
+
+.paragraph--large {
+    @apply text-base sm:text-lg;
+}
+
+.prose {
+    --tw-prose-body: var(--color-text);
+}
+
+/* Span */
+.span {
+    @apply text-base font-normal;
+}
+
+.span--secondary {
+    @apply text-xs sm:text-sm;
+}
+
+.span--small {
+    @apply text-xs;
+}
+
+/** Links **/
+.link {
+    @apply text-sm sm:text-base font-semibold text-surface hover:text-hover-text-secondary;
+}
+
+.link--small {
+    @apply text-xs sm:text-sm font-normal hover:font-semibold;
+}
+
+.link--big {
+    @apply text-lg hover:font-bold;
+}
+
+.link--nav {
+    @apply rounded-lg py-1.5 px-3 transition-colors duration-[var(--transition-duration)] hover:bg-hover hover:text-white;
+}
+
+.link--nav--secondary {
+    @apply py-2 px-3 bg-white dark:bg-muted text-text-highlight-secondary;
+}
+
+.link--tag {
+    @apply px-2 py-[1px] text-sm text-nowrap font-normal rounded-md bg-muted hover:bg-hover hover:text-hover-text;
+}
+
+.link--highlight {
+    @apply text-text-highlight-secondary hover:underline hover:font-bold;
+}
+
+/** Buttons **/
 
 .btn {
-    @apply bg-primary text-gray-100 px-4 py-1 rounded-lg font-bold shadow-lg;
+    @apply bg-neutral dark:bg-muted hover:bg-hover text-white dark:text-text hover:text-hover-text 
+    px-4 py-1 rounded-lg font-bold shadow-lg transition-colors duration-[var(--transition-duration)] cursor-pointer;
+}
+
+.btn--colored {
+    @apply bg-secondary/10 dark:bg-muted text-text-highlight-secondary;
+}
+
+.btn--icon {
+    @apply w-7 h-7 p-0.5;
+}
+
+.btn--icon--big {
+    @apply w-8 h-8;
 }
 
 .btn-gradient {
-    @apply bg-gradient-to-r from-primary to-secondary-600 text-gray-200;
+    @apply bg-gradient-to-r from-primary to-secondary-600 text-muted;
 }
 
 .btn-gradient:hover {
-    @apply text-white bg-gradient-to-r from-primary-700 to-secondary-500;
+    @apply text-hover-text dark:text-secondary bg-gradient-to-r from-primary-700 dark:from-primary to-secondary-500 dark:to-secondary-400;
 }
 
 .btn-white {
-    @apply bg-gray-100 text-primary-400 hover:bg-white hover:text-primary;
+    @apply bg-gray-100 dark:bg-muted text-primary hover:bg-white dark:hover:bg-secondary hover:text-hover-text-secondary;
 }
 
 
-/** TEXT **/
+/** Icons **/
+.icon-container {
+    @apply flex items-center gap-1;
+}
 
-.text-gradient {
+.icon {
+    @apply w-6 h-6;
+}
+
+.icon--big {
+    @apply w-8 h-8;
+}
+
+
+/** GENERALES **/
+
+/* Animacion predeterminada */
+.animate {
+    @apply transition-all duration-[var(--transition-duration)]
+}
+
+/* Diseño scrollbar */
+.overflow-y-auto {
+    @apply [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-track]:bg-muted [&::-webkit-scrollbar-thumb]:bg-gray-400 [&::-webkit-scrollbar-thumb]:cursor-pointer;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500;
+}
+
+/* Elemento fijo desplazable */
+.fix {
+    @apply sticky top-0 z-10;
+}
+
+/* Diseño contenedor de codigo */
+pre {
+    @apply !bg-secondary/5 rounded-lg px-4 py-2;
+}
+
+/* Text gradient */
+.text-gradient-1 {
+    @apply bg-gradient-to-r from-primary via-secondary-600 to-primary bg-clip-text text-transparent transition-colors duration-[var(--transition-duration)];
+}
+
+.text-gradient-2 {
     @apply bg-gradient-to-r from-primary to-secondary-600 bg-clip-text text-transparent
 }
 
-.main-title {
-    @apply text-2xl font-bold text-left
+
+/** CARD **/
+
+.card {
+    @apply flex flex-col shadow-md rounded-lg ring-1 ring-secondary/20 hover:bg-hover hover:text-muted dark:bg-muted;
+
+    .card__span {
+        @apply text-text-neutral/80;
+    }
+
+    .card__title {
+        @apply text-text-highlight-secondary;
+    }
+
+    .card__content {
+        @apply text-text;
+    }
+
+    pre {
+        @apply hidden;
+    }
 }
+
+.card:hover {
+    .card__span {
+        @apply text-text-muted dark:text-text-neutral;
+    }
+
+    .card__title {
+        @apply text-hover-text;
+    }
+
+    .card__content {
+        @apply text-text-muted dark:text-text;
+    }
+}
+
+.card--animation {
+    @apply hover:translate-x-2 hover:translate-y-1;
+}
+
