@@ -3,9 +3,9 @@ import { Entrys } from '@/components/components'
 ---
 
 <section id="burger-menu" class="burger-menu fixed top-0 left-0 z-100 w-full overflow-hidden bg-gradient animate 
-flex flex-col items-center justify-center md:hidden" transition:persist>
-    <ul class="flex flex-col gap-4 items-center justify-center">
-        <Entrys className="link link--big"/>
+flex flex-col items-center justify-center" transition:persist>
+    <ul class="flex flex-col gap-6 items-center justify-center">
+        <Entrys className="link link--big" direction="col"/>
         <li>
             <a href="https://astro.build/" id="docs" target="_blank"
             class="link link--nav link--nav--secondary">
@@ -16,7 +16,6 @@ flex flex-col items-center justify-center md:hidden" transition:persist>
 </section>
 
 <style>
-
     .burger-menu {
         --top-height: 0;
         height: 0;
@@ -52,26 +51,33 @@ flex flex-col items-center justify-center md:hidden" transition:persist>
 <script>
     function burgerMenu() {
         const navbarHeight = document.getElementById('navbar')?.offsetHeight
-        const burgerMenu = document.getElementById('burger-menu')
         const burgerButton = document.getElementById('burger-button')        
+        const burgerMenu = document.getElementById('burger-menu')
 
-        const setMenuStatus = (status: 'active' | 'inactive') => document.body.setAttribute('data-menu', status)
+        if (!navbarHeight || !burgerButton || !burgerMenu) return
+        burgerMenu.style.setProperty('--top-height', `${navbarHeight}px`)
 
-        const toggleBurgerMenu = () => {
-            const newMenuStatus = document.body.getAttribute('data-menu') === 'inactive' ? 'active' : 'inactive'
-            setMenuStatus(newMenuStatus)
-            if (burgerButton) burgerButton.title = newMenuStatus === 'active' ? 'Close menu' : 'Open menu'
+        const openBurgerMenu = () => document.body.setAttribute('data-menu', 'active')
+        const closeBurgerMenu = () => document.body.removeAttribute('data-menu')
+
+        const toggleMenuStatus = () => {
+            const burgerMenuStatus = document.body.getAttribute('data-menu')
+            //if is active -> close
+            if (burgerMenuStatus) {
+                burgerButton.title = 'Open menu'
+                return closeBurgerMenu()
+            }
+            //if is inactive -> open
+            openBurgerMenu()
+            burgerButton.title = 'Close menu'
         }
-
-        setMenuStatus('inactive')
-        if (navbarHeight && burgerMenu) burgerMenu.style.setProperty('--top-height', `${navbarHeight}px`)
-
-        burgerButton?.addEventListener('click', toggleBurgerMenu)  
+    
+        burgerButton.addEventListener('click', toggleMenuStatus)  
         //MD: 768px
-        window.addEventListener('resize', () => window.innerWidth > 768 ? setMenuStatus('inactive') : '')
+        window.addEventListener('resize', () => window.innerWidth > 768 ? closeBurgerMenu() : '')
 
         document.addEventListener('astro:before-preparation', () => {
-            burgerButton?.removeEventListener('click', toggleBurgerMenu)
+            burgerButton?.removeEventListener('click', toggleMenuStatus)
         }, { once: true })
     }
 

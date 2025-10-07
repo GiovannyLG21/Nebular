@@ -27,22 +27,22 @@ const formatDate = formatPostDate(date)
 <Layout title={title}>
     <div class="bg-gradient--nav"></div>
     <main class="!gap-4" transition:persist>
-        <h1 class="fix px-2 pb-4 pt-8 title-h1 !text-text-highlight-secondary icon-container !gap-2">
-                <button 
-                title="Toggle table of contents" 
-                class="toggle-aside hidden sm:inline btn btn--icon btn--icon--big btn--colored"                
-                >
-                    <ClipboardIcon />
-                </button>
-                {title}
-            </h1>
+        <h1 class="fix px-2 pb-4 pt-8 title-h1 !text-highlight-secondary icon-container !gap-2">
+            <button 
+            title="Toggle table of contents" 
+            class="toggle-aside hidden sm:inline btn btn--icon btn--icon--big btn--colored"                
+            >
+                <ClipboardIcon />
+            </button>
+            {title}
+        </h1>
         <header class="-translate-y-[1rem]">
             <!-- Title -->
             
             <!-- Data -->
             <section class="flex flex-col gap-4 ml-2">  
                 <!-- Date and readtime -->
-                <section class="flex flex-row gap-2 items-center text-text-neutral span span--secondary">                
+                <section class="flex flex-row gap-2 items-center text-neutral span span--secondary">                
                     <p class="icon-container">
                         <span class="w-5">
                             <CalendarIcon />
@@ -62,7 +62,7 @@ const formatDate = formatPostDate(date)
                 <!-- Tags -->
                 <section>
                     <ul class="flex flex-row flex-wrap items-start gap-2">
-                        <span class="icon text-text-highlight-secondary">
+                        <span class="icon text-highlight-secondary">
                             <TagIcon />
                         </span>
                         { tags.map((tag) => <TagCard tag={tag} type="filled"/>) }
@@ -77,7 +77,7 @@ const formatDate = formatPostDate(date)
             <aside id="post-aside" class="hidden sm:inline relative min-w-[14rem] max-w-[40rem]">
                 <section class="fix flex flex-col gap-2 ring-1 ring-muted p-4 pl-8 bg-secondary/2 rounded-md shadow-md">
                     <header class="w-full flex flex-row items-center justify-between">
-                        <h3 class="text-nowrap text-text-highlight-secondary font-bold">Table of Contents</h3>
+                        <h3 class="text-nowrap text-highlight-secondary font-bold">Table of Contents</h3>
                         <button class="toggle-aside btn btn--icon" title="Close">
                             <CloseIcon />
                         </button>

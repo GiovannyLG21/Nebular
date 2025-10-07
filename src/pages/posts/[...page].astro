@@ -7,7 +7,6 @@ import type { Page } from 'astro'
 
 export async function getStaticPaths({ paginate }: any){
     const posts = await getPosts()
-
     return paginate(posts, { pageSize: 4 })
  }
 

@@ -29,7 +29,7 @@ const { tag, posts } = Astro.props
             <span class="w-8">
                 <ArrowRightIcon type={2}/>
             </span>
-            <p class="text-text-highlight-secondary dark:text-text">#{tag}</p>
+            <p class="text-highlight-secondary dark:text-text">#{tag}</p>
         </h1>
         <section class="flex flex-col gap-6 max-h-[50vh] py-4 pl-2 pr-8 overflow-y-auto">
             {posts.map(post => <PostCard post={post} type="normal" />)}

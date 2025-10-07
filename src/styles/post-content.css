@@ -1,16 +1,17 @@
 @import '@/styles/global.css';
 
 .before-symbol {
-    @apply before:content-['#'] before:text-text-highlight-secondary before:font-bold;    
+    @apply before:content-['#'] before:text-highlight-secondary before:font-bold;
 }
 
 .content {
 
-    h1, h2 {
-        @apply text-xl text-text-highlight-secondary font-semibold mt-10 before:content-['#'] before:text-text-highlight before:font-bold;
+    h1,
+    h2 {
+        @apply text-xl text-highlight-secondary font-semibold mt-10 before:content-['#'] before:text-highlight before:font-bold;
     }
 
     a {
-        @apply text-text-highlight-secondary no-underline font-semibold hover:font-bold hover:underline;
+        @apply text-highlight-secondary no-underline font-semibold hover:font-bold hover:underline;
     }
 }

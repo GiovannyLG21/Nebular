@@ -49,10 +49,8 @@
 
     /** Text **/
     --color-text: var(--color-surface);
-    --color-text-neutral: var(--color-neutral);
-    --color-text-muted: var(--color-muted);
-    --color-text-highlight: var(--color-primary);
-    --color-text-highlight-secondary: var(--color-secondary);
+    --color-highlight: var(--color-primary);
+    --color-highlight-secondary: var(--color-secondary);
 }
 
 html[data-theme="dark"] {
@@ -72,10 +70,8 @@ html[data-theme="dark"] {
 
     /** Text **/
     --color-text: var(--color-surface);
-    --color-text-neutral: var(--color-neutral);
-    --color-text-muted: var(--color-muted);
-    --color-text-highlight: var(--color-primary);
-    --color-text-highlight-secondary: var(--color-primary);
+    --color-highlight: var(--color-primary);
+    --color-highlight-secondary: var(--color-primary);
 
     .astro-code,
     .astro-code span {
@@ -198,7 +194,7 @@ main {
 /** Titles **/
 
 .title-h1 {
-    @apply text-xl sm:text-2xl font-bold text-text-highlight
+    @apply text-xl sm:text-2xl font-bold text-highlight
 }
 
 .title-h1--big {
@@ -206,7 +202,7 @@ main {
 }
 
 .title-h2 {
-    @apply text-base font-bold text-text-highlight
+    @apply text-base font-bold text-highlight
 }
 
 .title-h2--big {
@@ -258,7 +254,7 @@ main {
 }
 
 .link--nav--secondary {
-    @apply py-2 px-3 bg-white dark:bg-muted text-text-highlight-secondary;
+    @apply py-2 px-3 bg-white dark:bg-muted text-highlight-secondary;
 }
 
 .link--tag {
@@ -266,18 +262,17 @@ main {
 }
 
 .link--highlight {
-    @apply text-text-highlight-secondary hover:underline hover:font-bold;
+    @apply text-highlight-secondary hover:underline hover:font-bold;
 }
 
 /** Buttons **/
 
 .btn {
-    @apply bg-neutral dark:bg-muted hover:bg-hover text-white dark:text-text hover:text-hover-text 
-    px-4 py-1 rounded-lg font-bold shadow-lg transition-colors duration-[var(--transition-duration)] cursor-pointer;
+    @apply bg-neutral dark:bg-muted hover:bg-hover text-white dark:text-text hover:text-hover-text px-4 py-1 rounded-lg font-bold shadow-lg transition-colors duration-[var(--transition-duration)] cursor-pointer;
 }
 
 .btn--colored {
-    @apply bg-secondary/10 dark:bg-muted text-text-highlight-secondary;
+    @apply bg-secondary/10 dark:bg-muted text-highlight-secondary;
 }
 
 .btn--icon {
@@ -357,11 +352,11 @@ pre {
     @apply flex flex-col shadow-md rounded-lg ring-1 ring-secondary/20 hover:bg-hover hover:text-muted dark:bg-muted;
 
     .card__span {
-        @apply text-text-neutral/80;
+        @apply text-neutral/80;
     }
 
     .card__title {
-        @apply text-text-highlight-secondary;
+        @apply text-highlight-secondary;
     }
 
     .card__content {
@@ -375,7 +370,7 @@ pre {
 
 .card:hover {
     .card__span {
-        @apply text-text-muted dark:text-text-neutral;
+        @apply text-muted dark:text-neutral;
     }
 
     .card__title {
@@ -383,11 +378,10 @@ pre {
     }
 
     .card__content {
-        @apply text-text-muted dark:text-text;
+        @apply text-muted dark:text-text;
     }
 }
 
 .card--animation {
     @apply hover:translate-x-2 hover:translate-y-1;
 }
-

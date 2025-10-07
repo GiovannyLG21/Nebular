@@ -15,7 +15,7 @@ const { tag, posts, type = 'normal' } = Astro.props
         <a href={`/tags/${tag}`} class="link link--tag flex items-center gap-1">
             #{tag}
             {posts && (
-                <span class="span span--small text-text-neutral group-hover:text-hover-text animate">
+                <span class="span span--small text-neutral group-hover:text-hover-text animate">
                     {posts.length} posts
                 </span>
             )}
@@ -25,7 +25,7 @@ const { tag, posts, type = 'normal' } = Astro.props
 
 { type === 'filled' && (
     <li class="animate ease-out shadow-lg">
-        <a href={`/tags/${tag}`} class="px-2 rounded-md text-nowrap bg-secondary hover:bg-secondary/80 text-white dark:text-text-highlight">
+        <a href={`/tags/${tag}`} class="px-2 rounded-md text-nowrap bg-secondary hover:bg-secondary/80 text-white dark:text-highlight">
             #{tag}
         </a>
     </li>

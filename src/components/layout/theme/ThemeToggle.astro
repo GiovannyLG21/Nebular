@@ -9,6 +9,8 @@ import { SunIcon, MoonIcon } from '@/assets/icons/icons'
 
 <script>    
     function toggleTheme() {
+        const themeToggle = document.getElementById('theme-toggle') 
+
         const setTheme = (theme: string) => {
             localStorage.setItem('theme', theme)
             document.documentElement.setAttribute('data-theme', theme)            
@@ -21,9 +23,7 @@ import { SunIcon, MoonIcon } from '@/assets/icons/icons'
                 newTheme = systemTheme
             }
             setTheme(newTheme)    
-        }
-
-        const themeToggle = document.getElementById('theme-toggle') 
+        }        
            
         themeToggle?.addEventListener('click', handleToggleClick)
 
