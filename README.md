@@ -30,7 +30,7 @@ El proyecto aprovecha el rendimiento estático de **Astro** y el poder visual de
 Clona el repositorio y entra en la carpeta del proyecto:
 
 ```bash
-git clone https://github.com/tu-usuario/nebular.git
+git clone https://github.com/GiovannyLG21/Nebular.git
 cd nebular
 ```
 
@@ -46,13 +46,14 @@ Inicia el entorno de desarrollo:
 npm run dev
 ```
 
-El proyecto estará disponible en http://localhost:4321 por defecto.
+El proyecto estará disponible en [http://localhost:4321](http://localhost:4321) por defecto.
 
 ---
 
 ## 🧑‍💻 Autor
 
 Desarrollado por Giovanny Ladino
+
 📫 [nebular-blog.vercel.app](https://nebular-blog.vercel.app)
 
 ---
