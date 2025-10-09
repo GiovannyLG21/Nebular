@@ -258,7 +258,7 @@ main {
 }
 
 .link--tag {
-    @apply px-2 py-[1px] text-sm text-nowrap font-normal rounded-md bg-muted hover:bg-hover hover:text-hover-text;
+    @apply px-2 py-[1px] text-sm text-nowrap font-normal rounded-md shadow-sm bg-muted hover:bg-hover hover:text-hover-text;
 }
 
 .link--highlight {

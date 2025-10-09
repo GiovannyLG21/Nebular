@@ -11,11 +11,11 @@ const { tag, posts, type = 'normal' } = Astro.props
 ---
 
 { type === 'normal' && (
-    <li class="group animate ease-out shadow-sm mx-[1px]">
-        <a href={`/tags/${tag}`} class="link link--tag flex items-center gap-1">
+    <li class="group mx-[1px]">
+        <a href={`/tags/${tag}`} class="link link--tag flex items-center gap-1 animate">
             #{tag}
             {posts && (
-                <span class="span span--small text-neutral group-hover:text-hover-text animate">
+                <span class="span span--small text-neutral group-hover:text-hover-text animate delay-75">
                     {posts.length} posts
                 </span>
             )}
