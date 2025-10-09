@@ -105,7 +105,7 @@ import type { CollectionType } from '@/libs/search'
             const executeSearch = () => {
                 searchInputVal = searchInputField.value                
                 if (searchInputVal === '') return inactiveResContainer()
-                fetch('http://localhost:4321/api/search', {
+                fetch('/api/search', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -130,7 +130,7 @@ import type { CollectionType } from '@/libs/search'
                                 <h2>
                                     <a href="/${collection}/${slug}" rel="external" class="link link--highlight">${title}</a>
                                 </h2>
-                                <p class="paragraph text-neutral">${matchElement}</p>
+                                <p class="paragraph text-neutral">${matchElement}...</p>
                             </div>
                         `
                         return searchElement
