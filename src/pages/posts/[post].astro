@@ -74,7 +74,7 @@ const formatDate = formatPostDate(date)
             <article id="post-content" class="content prose dark:prose-invert">
                 <Content />
             </article>
-            <aside id="post-aside" class="hidden sm:inline relative min-w-[14rem] max-w-[40rem]">
+            <aside id="post-aside" class="sm:inline relative min-w-[14rem] max-w-[40rem]">
                 <section class="fix flex flex-col gap-2 ring-1 ring-muted p-4 pl-8 bg-secondary/2 rounded-md shadow-md">
                     <header class="w-full flex flex-row items-center justify-between">
                         <h3 class="text-nowrap text-highlight-secondary font-bold">Table of Contents</h3>
@@ -97,7 +97,7 @@ const formatDate = formatPostDate(date)
         const postAside = document.getElementById('post-aside')
 
         const toggleAside = () => {
-            postAside?.classList.toggle('sm:inline')            
+            postAside?.classList.toggle('!hidden')            
         }
 
         ToggleAsideButtons.forEach(button => {
