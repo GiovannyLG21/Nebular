@@ -1,64 +1,120 @@
 # 🌌 Nebular
 
-**Nebular** es un sitio web tipo **blog informativo**, construido con [Astro](https://astro.build/) y [TailwindCSS](https://tailwindcss.com/), desplegado en [Vercel](https://vercel.com/).
+**Nebular** es un blog informativo moderno y minimalista desarrollado con **Astro** y **TailwindCSS**, enfocado en ofrecer una experiencia de lectura rápida, limpia y adaptable a diferentes dispositivos.
+
+🔗 **Demo:** https://nebular-blog.vercel.app/
 
 ---
 
-## 🚀 Demo
+## ✨ Características
 
-🔗 [https://nebular-blog.vercel.app/](https://nebular-blog.vercel.app/)
-
----
-
-## 🧠 Descripción
-
-Nebular está diseñado como un blog moderno, rápido y minimalista, enfocado en ofrecer contenido informativo con una interfaz limpia y una experiencia de lectura agradable.  
-El proyecto aprovecha el rendimiento estático de **Astro** y el poder visual de **TailwindCSS** junto a su plugin **@tailwindcss/typography** para un estilo editorial cuidado.
+- Diseño responsive y adaptable a dispositivos móviles.
+- Interfaz minimalista enfocada en la lectura.
+- Estructura de contenido orientada a formato editorial.
+- Generación de páginas estáticas para mejorar el rendimiento.
+- Estilos tipográficos optimizados para contenido extenso.
+- Despliegue mediante Vercel.
 
 ---
 
 ## 🛠️ Tecnologías
 
-- ⚡ [Astro](https://astro.build/) — Framework rápido para sitios estáticos.
-- 🎨 [TailwindCSS](https://tailwindcss.com/) — Framework CSS basado en utilidades.
-- ✍️ [@tailwindcss/typography](https://github.com/tailwindlabs/tailwindcss-typography) — Plugin para estilos tipográficos.
+| Tecnología | Uso |
+|---|---|
+| [Astro](https://astro.build/) | Framework principal y generación de páginas |
+| [TailwindCSS](https://tailwindcss.com/) | Estilos y diseño responsive |
+| [Tailwind Typography](https://github.com/tailwindlabs/tailwindcss-typography) | Estilos para contenido editorial |
+| [Vercel](https://vercel.com/) | Despliegue y hosting |
 
 ---
 
-## ⚙️ Instalación y uso local
+## 📸 Vista previa
 
-Clona el repositorio y entra en la carpeta del proyecto:
+![Nebular Preview](./public/captures/1.Home.png)
+
+![Nebular Preview](./public/captures/2.Posts.png)
+
+![Nebular Preview](./public/captures/3.Post.png)
+
+![Nebular Preview](./public/captures/4.Notes.png)
+
+![Nebular Preview](./public/captures/5.Note.jpeg)
+
+![Nebular Preview](./public/captures/6.About.jpeg)
+
+---
+
+## 🚀 Instalación
+
+### 1. Clonar el repositorio
 
 ```bash
 git clone https://github.com/GiovannyLG21/Nebular.git
-cd nebular
+cd Nebular
 ```
 
-Instala las dependencias:
+### 2. Instalar dependencias
 
 ```bash
 npm install
 ```
 
-Inicia el entorno de desarrollo:
+### 3. Iniciar el servidor de desarrollo
 
 ```bash
 npm run dev
 ```
 
-El proyecto estará disponible en [http://localhost:4321](http://localhost:4321) por defecto.
+El proyecto estará disponible en:
+
+```bash
+http://localhost:4321
+```
 
 ---
 
-## 🧑‍💻 Autor
+## 📦 Build de producción
 
-Desarrollado por Giovanny Ladino
+Para generar la versión optimizada para producción:
 
-📫 [nebular-blog.vercel.app](https://nebular-blog.vercel.app)
+```bash
+npm run build
+```
+
+Para previsualizar el build localmente:
+
+```bash
+npm run preview
+```
+
+---
+
+## 📁 Estructura del proyecto
+
+```bash
+Nebular/
+├── public/          # Recursos estáticos
+├── src/
+│   ├── components/  # Componentes reutilizables
+│   ├── layouts/     # Layouts de las páginas
+│   ├── pages/       # Rutas y páginas
+│   └── ...
+├── astro.config.mjs
+├── package.json
+└── README.md
+```
+
+--- 
+
+## 👨‍💻 Autor
+
+Giovanny Ladino
+
+- GitHub: https://github.com/GiovannyLG21
+- Demo: https://nebular-blog.vercel.app/
 
 ---
 
 ## 📄 Licencia
 
-Este proyecto se publica bajo la licencia MIT.
-Puedes usarlo, modificarlo y distribuirlo libremente con atribución.
+Este proyecto está publicado bajo la licencia MIT.
